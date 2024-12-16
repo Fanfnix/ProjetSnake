@@ -15,12 +15,10 @@ int main()
     }
 
     // Création serpent //
-    struct Corps c1 = {10, 11, 'O'};
-    struct Corps c2 = {10, 12, 'O'};
+    struct Corps c1 = {10, 11, 'o'};
+    struct Corps c2 = {10, 12, 'o'};
 
     struct Serpent abo = {10, 10, 3, 'O', {c1, c2}, 'z'};
-
-    struct Serpent * ad_abo = &abo;
 
     // Ajout du serpent dans la grille //
     grille[abo.y][abo.x] = abo.apparence;
@@ -42,11 +40,11 @@ int main()
             char car = getch();
             if (car == 'z' || car == 'q' || car == 's'|| car == 'd')
             {
-                *ad_abo.direction = car;
+                (*ad_abo).direction = car;
             }
         }
 
-        deplacementSerpent(ad_abo);
+        deplacementSerpent(&abo);
     }
     return 0;
 }

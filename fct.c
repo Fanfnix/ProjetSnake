@@ -29,27 +29,26 @@ void afficherGrille(char grille[][TAILLE])
 
 void deplacementSerpent(struct Serpent * ad_abo)
 {
-    struct Corps queue[] = *ad_abo.corps;
-    for (int i = 0; i < *ad_abo.taille - 1; i++)
+    for (int i = 0; i < (*ad_abo).taille - 1; i++)
     {
-        int id = *ad_abo.taille - 2 - i;
+        int id = (*ad_abo).taille - 2 - i;
         if (id != 0)
         {
-            queue[id].x = queue[id - 1].x;
-            queue[id].y = queue[id - 1].y;
+            (*ad_abo).corps[id].x = (*ad_abo).corps[id - 1].x;
+            (*ad_abo).corps[id].y = (*ad_abo).corps[id - 1].y;
         }
         else
         {
-            queue[0].x = *ad_abo.x;
-            queue[0].y = *ad_abo.y;
+            (*ad_abo).corps[0].x = (*ad_abo).x;
+            (*ad_abo).corps[0].y = (*ad_abo).y;
         }
     }
     
-    switch *ad_abo.direction
+    switch ((*ad_abo).direction)
     {
-        case 'z': *ad_abo.y -= 1;
-        case 's': *ad_abo.y += 1;
-        case 'q': *ad_abo.x -= 1;
-        case 'd': *ad_abo.x += 1;
+        case 'z': (*ad_abo).y -= 1;
+        case 's': (*ad_abo).y += 1;
+        case 'q': (*ad_abo).x -= 1;
+        case 'd': (*ad_abo).x += 1;
     }
 }
