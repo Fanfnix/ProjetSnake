@@ -12,7 +12,7 @@ struct Serpent {
     int x, y;
     int taille;
     char apparence;
-    struct Corps queue[20];
+    struct Corps corps[20];
 };
 
 struct Nourriture {
