@@ -1,4 +1,5 @@
 #include "fct.h"
+#include <conio.h>
 
 int main()
 {
@@ -17,7 +18,9 @@ int main()
     struct Corps c1 = {10, 11, 'O'};
     struct Corps c2 = {10, 12, 'O'};
 
-    struct Serpent abo = {10, 10, 3, 'O', {c1, c2}};
+    struct Serpent abo = {10, 10, 3, 'O', {c1, c2}, 'z'};
+
+    struct Serpent * ad_abo = &abo;
 
     // Ajout du serpent dans la grille //
     grille[abo.y][abo.x] = abo.apparence;
@@ -26,8 +29,21 @@ int main()
         grille[abo.corps[t].y][abo.corps[t].x] = abo.corps[t].apparence;
     }
 
-    // Affichage grille //
-    afficherGrille(grille);
+    int run = 1;
 
+    while (run)
+    {
+        // Affichage grille //
+        afficherGrille(grille);
+
+        if (kbhit())
+        {
+            char car = getch();
+            if (car == 'z' || car == 'q' || car == 's'|| car == 'd')
+            {
+                abo.direction = car;
+            }
+        }
+    }
     return 0;
 }

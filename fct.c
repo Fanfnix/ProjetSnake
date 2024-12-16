@@ -26,3 +26,8 @@ void afficherGrille(char grille[][TAILLE])
     }
     printf("\n");
 }
+
+void deplacementSerpent()
+{
+    
+}
