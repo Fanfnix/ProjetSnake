@@ -3,10 +3,16 @@
 
 #define TAILLE 20
 
+struct Corps {
+    int x, y;
+    char apparence;
+};
+
 struct Serpent {
     int x, y;
     int taille;
     char apparence;
+    struct Corps queue[20];
 };
 
 struct Nourriture {
