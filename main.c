@@ -35,15 +35,18 @@ int main()
     {
         // Affichage grille //
         afficherGrille(grille);
+        system("sleep 0.5");
 
         if (kbhit())
         {
             char car = getch();
             if (car == 'z' || car == 'q' || car == 's'|| car == 'd')
             {
-                abo.direction = car;
+                *ad_abo.direction = car;
             }
         }
+
+        deplacementSerpent(ad_abo);
     }
     return 0;
 }
