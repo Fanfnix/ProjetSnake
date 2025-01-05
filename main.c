@@ -1,5 +1,8 @@
 #include "fct.h"
-#include <conio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <ncurses.h>
 
 int main()
 {
@@ -29,22 +32,43 @@ int main()
 
     int run = 1;
 
+    initscr();			/* Start curses mode 		*/
+	raw();				/* Line buffering disabled	*/
+	keypad(stdscr, TRUE);		/* We get F1, F2 etc..		*/
+	noecho();
+    timeout(0);
+
     while (run)
     {
+        // Ajout du serpent dans la grille //
+        grille[abo.y][abo.x] = abo.apparence;
+        for (int t = 0; t < abo.taille - 1; t++)
+        {
+            grille[abo.corps[t].y][abo.corps[t].x] = abo.corps[t].apparence;
+        }
+
         // Affichage grille //
         afficherGrille(grille);
-        system("sleep 0.5");
+        usleep(500000);
 
-        if (kbhit())
+        char car = getch();
+        if (car == 'z' || car == 'q' || car == 's'|| car == 'd')
         {
-            char car = getch();
-            if (car == 'z' || car == 'q' || car == 's'|| car == 'd')
-            {
-                (*ad_abo).direction = car;
-            }
+            abo.direction = car;
+        }
+        else if (car == 'k')
+        {
+            break;
         }
 
         deplacementSerpent(&abo);
+
+        // if (perdu(&abo))
+        // {
+        //     run = 0;
+        // }
     }
+    endwin();
+    printf("Perdu noob ^^\n");
     return 0;
 }

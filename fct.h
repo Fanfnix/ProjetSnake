@@ -23,5 +23,6 @@ struct Nourriture {
 
 void afficherGrille(char grille[][TAILLE]);
 void deplacementSerpent(struct Serpent * ad_abo);
+int perdu(struct Serpent * ad_abo);
 
 #endif

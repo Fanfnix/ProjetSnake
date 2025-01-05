@@ -1,30 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ncurses.h>
 
 #include "fct.h"
 
 void afficherGrille(char grille[][TAILLE])
 {
-    system("clear");
     for (int i = 0; i < TAILLE * 3 + 2; i++)
     {
-        printf("#");
+        printw("#");
     }
-    printf("\n");
+    printw("\n");
     for (int y = 0; y < TAILLE; y++)
     {
-        printf("#");
+        printw("#");
         for (int x = 0; x < TAILLE; x++)
         {
-            printf(" %c ", grille[y][x]);
+            printw(" %c ", grille[y][x]);
         }
-        printf("#\n");
+        printw("#\n");
     }
     for (int i = 0; i < TAILLE * 3 + 2; i++)
     {
-        printf("#");
+        printw("#");
     }
-    printf("\n");
+    printw("\n");
+    refresh();
 }
 
 void deplacementSerpent(struct Serpent * ad_abo)
@@ -52,3 +53,10 @@ void deplacementSerpent(struct Serpent * ad_abo)
         case 'd': (*ad_abo).x += 1;
     }
 }
+
+// int perdu(struct Serpent * ad_abo)
+// {
+//     for (int)
+// }
+
+
