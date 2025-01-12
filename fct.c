@@ -23,7 +23,7 @@ void rafraichissementGrille(char grille[][TAILLE], struct Serpent * ad_abo, stru
 }
 
 
-void afficherGrille(char grille[][TAILLE])
+void afficherGrille(char grille[][TAILLE], struct Serpent * ad_abo)
 {
     erase();
     for (int i = 0; i < TAILLE * 3 + 2; i++)
@@ -44,7 +44,7 @@ void afficherGrille(char grille[][TAILLE])
     {
         printw("#");
     }
-    printw("\n");
+    printw("\nScore : %d", (*ad_abo).taille - 3); // Le serpent part avec 2 corpsq plus sa tete ce qui lui donne une teille de base de 3 d'où le "-3"
 }
 
 

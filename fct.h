@@ -21,7 +21,7 @@ struct Nourriture {
     char apparence;
 };
 
-void afficherGrille(char grille[][TAILLE]);
+void afficherGrille(char grille[][TAILLE], struct Serpent * ad_abo);
 void rafraichissementGrille(char grille[][TAILLE], struct Serpent * ad_abo, struct Nourriture * ad_food);
 int deplacementSerpent(struct Serpent * ad_abo, struct Nourriture * food);
 

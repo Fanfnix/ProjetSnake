@@ -37,22 +37,24 @@ int main()
         rafraichissementGrille(grille, ad_abo, ad_food);
 
         // Affichage grille //
-        afficherGrille(grille);
+        afficherGrille(grille, ad_abo);
         usleep(100000);
 
         char pressed = wgetch(win);
 
         if (pressed == 'z') { abo.dirx = -1; abo.diry = 0; abo.apparence = '^';}
-        if (pressed == 's') { abo.dirx = 1; abo.diry = 0; abo.apparence = 'v';}
-        if (pressed == 'q') { abo.dirx = 0; abo.diry = -1; abo.apparence = '<';}
-        if (pressed == 'd') { abo.dirx = 0; abo.diry = 1; abo.apparence = '>';}
-        if (pressed == 'k') { break;}
+        else if (pressed == 's') { abo.dirx = 1; abo.diry = 0; abo.apparence = 'v';}
+        else if (pressed == 'q') { abo.dirx = 0; abo.diry = -1; abo.apparence = '<';}
+        else if (pressed == 'd') { abo.dirx = 0; abo.diry = 1; abo.apparence = '>';}
+        else if (pressed == 'k') { break;}
 
-        if (deplacementSerpent(ad_abo, ad_food))
+        if (deplacementSerpent(ad_abo, ad_food)) // deplacementSerpent renvoie 1 si le serpent se mord la queue; sinon elle renvoie 0
         {
             break;
         }
     }
     endwin(); // Pour arrêter ncurses
+
+    printf("Votre score : %d\n", abo.taille - 3); // Le serpent part avec 2 corpsq plus sa tete ce qui lui donne une teille de base de 3 d'où le "-3"
     return 0;
 }
