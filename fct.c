@@ -6,6 +6,7 @@
 
 void afficherGrille(char grille[][TAILLE])
 {
+    erase();
     for (int i = 0; i < TAILLE * 3 + 2; i++)
     {
         printw("#");
@@ -25,38 +26,34 @@ void afficherGrille(char grille[][TAILLE])
         printw("#");
     }
     printw("\n");
-    refresh();
 }
 
-void deplacementSerpent(struct Serpent * ad_abo)
+int deplacementSerpent(struct Serpent * ad_abo)
 {
-    for (int i = 0; i < (*ad_abo).taille - 1; i++)
+    int id;
+    int col = 0;
+    int PosX = ((*ad_abo).x + (*ad_abo).dirx) % TAILLE;
+    int PosY = ((*ad_abo).y + (*ad_abo).diry) % TAILLE;
+
+    for (int i = 1; i < (*ad_abo).taille; i++)
     {
-        int id = (*ad_abo).taille - 2 - i;
-        if (id != 0)
+        id = (*ad_abo).taille - 1 - i;
+        if (id == 0)
         {
-            (*ad_abo).corps[id].x = (*ad_abo).corps[id - 1].x;
-            (*ad_abo).corps[id].y = (*ad_abo).corps[id - 1].y;
+            (*ad_abo).corps[id].x = (*ad_abo).x;
+            (*ad_abo).corps[id].y = (*ad_abo).y;
         }
         else
         {
-            (*ad_abo).corps[0].x = (*ad_abo).x;
-            (*ad_abo).corps[0].y = (*ad_abo).y;
+            (*ad_abo).corps[id].x = (*ad_abo).corps[id-1].x;
+            (*ad_abo).corps[id].y = (*ad_abo).corps[id-1].y;
+        }
+        if (PosX == (*ad_abo).corps[id].x && PosY == (*ad_abo).corps[id].y)
+        {
+            col = 1;
         }
     }
-    
-    switch ((*ad_abo).direction)
-    {
-        case 'z': (*ad_abo).y -= 1;
-        case 's': (*ad_abo).y += 1;
-        case 'q': (*ad_abo).x -= 1;
-        case 'd': (*ad_abo).x += 1;
-    }
+    (*ad_abo).x = PosX;
+    (*ad_abo).y = PosY;
+    return col;
 }
-
-// int perdu(struct Serpent * ad_abo)
-// {
-//     for (int)
-// }
-
-

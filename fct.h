@@ -13,7 +13,7 @@ struct Serpent {
     int taille;
     char apparence;
     struct Corps corps[20];
-    char direction;
+    char dirx, diry;
 };
 
 struct Nourriture {
@@ -22,7 +22,6 @@ struct Nourriture {
 };
 
 void afficherGrille(char grille[][TAILLE]);
-void deplacementSerpent(struct Serpent * ad_abo);
-int perdu(struct Serpent * ad_abo);
+int deplacementSerpent(struct Serpent * ad_abo);
 
 #endif
