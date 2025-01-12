@@ -4,6 +4,25 @@
 
 #include "fct.h"
 
+
+void rafraichissementGrille(char grille[][TAILLE], struct Serpent * ad_abo, struct Nourriture * ad_food)
+{
+    for (int i = 0; i < TAILLE; i++)
+    {
+        for (int j = 0; j < TAILLE; j++)
+        {
+            grille[i][j] = ' ';
+        }
+    }
+    grille[(*ad_food).x][(*ad_food).y] = (*ad_food).apparence;
+    grille[(*ad_abo).x][(*ad_abo).y] = (*ad_abo).apparence;
+    for (int t = 0; t < (*ad_abo).taille - 1; t++)
+    {
+        grille[(*ad_abo).corps[t].x][(*ad_abo).corps[t].y] = (*ad_abo).corps[t].apparence;
+    }
+}
+
+
 void afficherGrille(char grille[][TAILLE])
 {
     erase();
@@ -28,12 +47,14 @@ void afficherGrille(char grille[][TAILLE])
     printw("\n");
 }
 
-int deplacementSerpent(struct Serpent * ad_abo)
+
+int deplacementSerpent(struct Serpent * ad_abo, struct Nourriture * ad_food)
 {
     int id;
     int col = 0;
-    int PosX = ((*ad_abo).x + (*ad_abo).dirx) % TAILLE;
-    int PosY = ((*ad_abo).y + (*ad_abo).diry) % TAILLE;
+    int TempX, TempY;
+    int NPosX = ((*ad_abo).x + (*ad_abo).dirx) % TAILLE; // Nouvelle position x
+    int NPosY = ((*ad_abo).y + (*ad_abo).diry) % TAILLE; // Nouvelle position y
 
     for (int i = 1; i < (*ad_abo).taille; i++)
     {
@@ -47,13 +68,27 @@ int deplacementSerpent(struct Serpent * ad_abo)
         {
             (*ad_abo).corps[id].x = (*ad_abo).corps[id-1].x;
             (*ad_abo).corps[id].y = (*ad_abo).corps[id-1].y;
+            if (i == 1)
+            {
+                TempX = (*ad_abo).corps[id].x;
+                TempY = (*ad_abo).corps[id].y;
+            }
         }
-        if (PosX == (*ad_abo).corps[id].x && PosY == (*ad_abo).corps[id].y)
+        if (NPosX == (*ad_abo).corps[id].x && NPosY == (*ad_abo).corps[id].y)
         {
             col = 1;
         }
     }
-    (*ad_abo).x = PosX;
-    (*ad_abo).y = PosY;
+    (*ad_abo).x = NPosX;
+    (*ad_abo).y = NPosY;
+
+    if ((*ad_abo).x == (*ad_food).x && (*ad_abo).y == (*ad_food).y)
+    {
+        (*ad_abo).taille += 1;
+        struct Corps NewCorps = {TempX, TempY, 'o'};
+        (*ad_abo).corps[(*ad_abo).taille - 2] = NewCorps;
+        (*ad_food).x = rand() % TAILLE;
+        (*ad_food).y = rand() % TAILLE;
+    }
     return col;
 }
